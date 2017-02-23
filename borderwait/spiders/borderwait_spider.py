@@ -20,7 +20,7 @@ class BorderWaitSpider(scrapy.Spider):
             item['exit'] = bc[2].replace(' ', '').replace('min','')
             item['entry_q'] = bc[3].replace(' ', '').replace('m','')
             item['exit_q'] = bc[4].replace(' ', '').replace('m','')
-            yield item 
+            yield item
 
     def chunks(self, l, n):
         """Yield successive n-sized chunks from l."""

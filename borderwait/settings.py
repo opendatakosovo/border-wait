@@ -14,6 +14,11 @@ BOT_NAME = 'borderwait'
 SPIDER_MODULES = ['borderwait.spiders']
 NEWSPIDER_MODULE = 'borderwait.spiders'
 
+# MONGODB SETTINGS
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGO_DATABASE = "borderwait"
+# MONGODB_COLLECTION = "questions"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'borderwait (+http://www.yourdomain.com)'
@@ -64,9 +69,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'borderwait.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'borderwait.pipelines.BorderwaitPipeline': 800,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
