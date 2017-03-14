@@ -17,12 +17,53 @@ NEWSPIDER_MODULE = 'borderwait.spiders'
 # MONGODB SETTINGS
 MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DB = 'borderwait'
+MONGO_COLLECTION = 'waits'
 
 # TWITTER ACCESS TOKENS FOR TWITTER BOT
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
 TWITTER_ACCESS_TOKEN = ''
 TWITTER_ACCESS_TOKEN_SECRET = ''
+
+WAIT_TIME_GIF_URLS = {
+   'great': [
+      'http://i.giphy.com/kGMPV3ehtc7aE.gif',
+      'http://i.giphy.com/UKm1AF0UrCkb6.gif',
+      'http://i.giphy.com/p5P3aRq6wimsM.gif',
+      'http://i.giphy.com/qcMjXuCugvMXK.gif',
+      'http://i.giphy.com/A854pmlcoiHni.gif',
+      'http://i.giphy.com/cAfaWIcWr7qus.gif',
+      'http://i.giphy.com/mIMsLsQTJzAn6.gif',
+      'http://i.giphy.com/CAxbo8KC2A0y4.gif',
+      'http://i.giphy.com/qCYJu1d0VfJTy.gif',
+      'http://i.giphy.com/3otPoHqjMbo6JJ1FMk.gif',
+      'http://i.giphy.com/l2YWnw4TcCv5Vkgb6.gif'
+   ],
+   'ok': [
+      'http://i.giphy.com/3o7TKCGuEkIrLZ0E2Q.gif',
+      'http://i.giphy.com/cPngiJPGKsfUQ.gif',
+      'http://i.giphy.com/g790a3PzUHbs4.gif',
+      'http://i.giphy.com/RIymi3HoG8jNS.gif'
+   ],
+   'bad': [
+      'http://i.giphy.com/xTiTniwPRUeB59PNQc.gif',
+      'http://i.giphy.com/bP2bOuWDpVM7C.gif',
+      'http://i.giphy.com/NN5cAmTFRxpE4.gif',
+      'http://i.giphy.com/H8VgqYcwGO47K.gif',
+      'http://i.giphy.com/rEKMO9OWtXjZS.gif'
+   ],
+   'horrible': [
+      'http://i.giphy.com/59KddieNEF2GQ.gif',
+      'http://i.giphy.com/3o7TKFdhXnKtxbn6wg.gif',
+      'http://i.giphy.com/nAezPM5bCcuYw.gif',
+      'http://i.giphy.com/145UuNZFGsCjQc.gif',
+      'http://i.giphy.com/3o7qE3a5YpLpCdeq0U.gif',
+      'http://i.giphy.com/iWlLpQbm0dZPq.gif',
+      'http://i.giphy.com/4n9lYreyEcn3a.gif',
+      'http://i.giphy.com/4jCxItUVMfHig.gif',
+      'http://i.giphy.com/nEL6rKDWEonGU.gif'
+   ]
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'borderwait (+http://www.yourdomain.com)'
