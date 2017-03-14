@@ -74,7 +74,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'borderwait.pipelines.duplicates.DuplicatePipeline': 100,
+   'borderwait.pipelines.duplicates.DuplicatesPipeline': 100,
    'borderwait.pipelines.mongo.MongoPipeline': 200,
    'borderwait.pipelines.twitter.TwitterPipeline': 300
 }
