@@ -20,6 +20,12 @@ MONGODB_PORT = 27017
 MONGO_DATABASE = "borderwait"
 # MONGODB_COLLECTION = "questions"
 
+# TWITTER ACCESS TOKENS FOR TWITTER BOT
+# consumer_key = 'yS9rRL8K14s6CwsTRch3EdjbA'
+# consumer_secret = 'C3dxvVvXSaNsPbVq6CibzRRG6SCs6PqOXmttxl5SW8Fa2q3KI4'
+# access_token = '2280803000-5cO32q93tjAMHLCM397hI8hgSsZ51Vk4h1d9VVh'
+# access_token_secret = 'nnKRg2uDw1gO50qmZqvw1L5vCZbVddrNM4fuo14gqlU8u'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'borderwait (+http://www.yourdomain.com)'
 

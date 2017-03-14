@@ -4,10 +4,14 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import pymongo
+import pymongo, tweepy
+from twitter_auth import *
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
 
 class BorderwaitPipeline(object):
-
     collection_name = 'borderwait'
 
     def __init__(self, mongo_uri, mongo_db):
@@ -30,4 +34,8 @@ class BorderwaitPipeline(object):
 
     def process_item(self, item, spider):
         self.db[self.collection_name].insert(dict(item))
+        time = "kufiri :" + item['border'] + ", " + "hyrje: " + item['entry_q'] + ", " + "dalje: " + item['exit_q']
+
+        # time = item['border']
+        api.update_status(status=time +"\n "+ "#hashtag1s2 #hashtag2")
         return item

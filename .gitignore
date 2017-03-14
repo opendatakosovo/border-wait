@@ -1,1 +1,6 @@
 *.pyc
+.idea
+build
+dbs
+src
+project.egg-info
