@@ -2,6 +2,7 @@ import scrapy
 
 from borderwait.items import BorderWaitItem
 
+
 class BorderWaitSpider(scrapy.Spider):
     name = "borderwait"
     allowed_domains = ["mpb-ks.org"]

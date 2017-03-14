@@ -17,5 +17,4 @@ class BorderWaitItem(scrapy.Item):
     exit = scrapy.Field()
     entry_q = scrapy.Field()
     exit_q = scrapy.Field()
-    
-    
+
