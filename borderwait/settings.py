@@ -19,6 +19,13 @@ MONGO_URI = 'mongodb://localhost:27017'
 MONGO_DB = 'borderwait'
 MONGO_COLLECTION = 'waits'
 
+# Crawl responsibly by identifying yourself (and your website) on the user-agent
+#USER_AGENT = 'border (+http://www.yourdomain.com)'
+
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = True
+
+
 # TWITTER ACCESS TOKENS FOR TWITTER BOT
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
@@ -29,7 +36,6 @@ WAIT_TIME_GIF_URLS = {
    'great': [
       'http://i.giphy.com/kGMPV3ehtc7aE.gif',
       'http://i.giphy.com/UKm1AF0UrCkb6.gif',
-      'http://i.giphy.com/p5P3aRq6wimsM.gif',
       'http://i.giphy.com/qcMjXuCugvMXK.gif',
       'http://i.giphy.com/A854pmlcoiHni.gif',
       'http://i.giphy.com/cAfaWIcWr7qus.gif',
@@ -37,7 +43,6 @@ WAIT_TIME_GIF_URLS = {
       'http://i.giphy.com/CAxbo8KC2A0y4.gif',
       'http://i.giphy.com/qCYJu1d0VfJTy.gif',
       'http://i.giphy.com/3otPoHqjMbo6JJ1FMk.gif',
-      'http://i.giphy.com/l2YWnw4TcCv5Vkgb6.gif',
       'http://i.giphy.com/UjSdO0uoyGeac.gif',
       'http://i.giphy.com/UiJ8YgFH2hlC.gif'
    ],
@@ -47,7 +52,6 @@ WAIT_TIME_GIF_URLS = {
       'http://i.giphy.com/g790a3PzUHbs4.gif',
       'http://i.giphy.com/RIymi3HoG8jNS.gif',
       'http://i.giphy.com/QZbB48rGqylYk.gif',
-      'http://i.giphy.com/xT5LMFiDvePDSZtrtC.gif',
       'http://i.giphy.com/xT0BKBY1YIfxxtk092.gif',
       'http://i.giphy.com/11fucLQCTOdvBS.gif',
       'http://i.giphy.com/pFkbkttdEBnSo.gif',
@@ -58,20 +62,15 @@ WAIT_TIME_GIF_URLS = {
       'http://i.giphy.com/xTiTniwPRUeB59PNQc.gif',
       'http://i.giphy.com/bP2bOuWDpVM7C.gif',
       'http://i.giphy.com/NN5cAmTFRxpE4.gif',
-      'http://i.giphy.com/H8VgqYcwGO47K.gif',
       'http://i.giphy.com/rEKMO9OWtXjZS.gif',
       'http://i.giphy.com/3o6EhXIhX0HUX5nrsk.gif',
-      'http://i.giphy.com/d1EVJzlcmRz5VCx2.gif',
       'http://i.giphy.com/br7gVfL2SRdJK.gif',
-      'http://i.giphy.com/VCEI9PfSssA8w.gif'
    ],
    'horrible': [
       'http://i.giphy.com/59KddieNEF2GQ.gif',
       'http://i.giphy.com/3o7TKFdhXnKtxbn6wg.gif',
       'http://i.giphy.com/nAezPM5bCcuYw.gif',
-      'http://i.giphy.com/145UuNZFGsCjQc.gif',
       'http://i.giphy.com/3o7qE3a5YpLpCdeq0U.gif',
-      'http://i.giphy.com/iWlLpQbm0dZPq.gif',
       'http://i.giphy.com/4n9lYreyEcn3a.gif',
       'http://i.giphy.com/4jCxItUVMfHig.gif',
       'http://i.giphy.com/nEL6rKDWEonGU.gif',
@@ -80,13 +79,6 @@ WAIT_TIME_GIF_URLS = {
       'http://i.giphy.com/REPi7Zrx4xf5S.gif'
    ]
 }
-
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'borderwait (+http://www.yourdomain.com)'
-
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = True
-
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -113,13 +105,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'borderwait.middlewares.MyCustomSpiderMiddleware': 543,
+#    'border.middlewares.BorderSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'borderwait.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'border.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -131,9 +123,9 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'borderwait.pipelines.duplicates.DuplicatesPipeline': 100,
-   'borderwait.pipelines.mongo.MongoPipeline': 200,
-   'borderwait.pipelines.twitter.TwitterPipeline': 300
+    'borderwait.pipelines.mongo.MongoPipeline':100,
+    'borderwait.pipelines.duplicates.DuplicatesPipeline':300,
+    'borderwait.pipelines.twitter.TwitterPipeline':600
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

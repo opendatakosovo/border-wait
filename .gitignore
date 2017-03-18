@@ -3,4 +3,5 @@
 build
 dbs
 src
-project.egg-info
+borderwait.egg-info
+dist
