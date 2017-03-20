@@ -32,6 +32,9 @@ TWITTER_CONSUMER_SECRET = ''
 TWITTER_ACCESS_TOKEN = ''
 TWITTER_ACCESS_TOKEN_SECRET = ''
 
+#FACEBOOK ACCESS TOKENS FOR FACEBOOK BOT
+FACEBOOK_ACCESS_TOKEN = ''
+
 WAIT_TIME_GIF_URLS = {
    'great': [
       'http://i.giphy.com/kGMPV3ehtc7aE.gif',
@@ -125,7 +128,8 @@ WAIT_TIME_GIF_URLS = {
 ITEM_PIPELINES = {
     'borderwait.pipelines.mongo.MongoPipeline':100,
     'borderwait.pipelines.duplicates.DuplicatesPipeline':300,
-    'borderwait.pipelines.twitter.TwitterPipeline':600
+    'borderwait.pipelines.twitter.TwitterPipeline':600,
+    'borderwait.pipelines.facebook.FacebookPipeline':900
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
