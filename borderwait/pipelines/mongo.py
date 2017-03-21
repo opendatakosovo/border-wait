@@ -1,6 +1,5 @@
+import pymongo, datetime
 from scrapy.exceptions import DropItem
-import pymongo, json, datetime, pymongo
-from bson import ObjectId
 
 # Save the item in MongoDB
 class MongoPipeline(object):
@@ -27,9 +26,9 @@ class MongoPipeline(object):
     def process_item(self, item, spider):
         border = item['border']
         time = item['time']
-        latestDoc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
-        for value in latestDoc:
-            if time == value['border']['time'] and border == value['border']['border']:
+        latest_doc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
+        for res in latest_doc:
+            if time == res['border']['time'] and border == res['border']['border']:
                 self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
                 raise DropItem("Duplicate item found: %s" % item)
             else:

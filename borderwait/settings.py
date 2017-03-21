@@ -16,8 +16,8 @@ NEWSPIDER_MODULE = 'borderwait.spiders'
 
 # MONGODB SETTINGS
 MONGO_URI = 'mongodb://localhost:27017'
-MONGO_DB = 'borderwait'
-MONGO_COLLECTION = 'waits'
+MONGO_DB = 'borderwait' #database name
+MONGO_COLLECTION = 'waits' #database collection
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'border (+http://www.yourdomain.com)'
@@ -127,9 +127,8 @@ WAIT_TIME_GIF_URLS = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'borderwait.pipelines.mongo.MongoPipeline':100,
-    'borderwait.pipelines.duplicates.DuplicatesPipeline':300,
-    'borderwait.pipelines.twitter.TwitterPipeline':600,
-    'borderwait.pipelines.facebook.FacebookPipeline':900
+    'borderwait.pipelines.twitter.TwitterPipeline':300,
+    'borderwait.pipelines.facebook.FacebookPipeline':600
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

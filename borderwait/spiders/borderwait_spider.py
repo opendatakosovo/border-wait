@@ -1,5 +1,4 @@
 import scrapy, datetime
-
 from borderwait.items import BorderWaitItem
 
 

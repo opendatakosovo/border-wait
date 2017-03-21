@@ -19,9 +19,9 @@ class TwitterPipeline(object):
         )
 
     def open_spider(self, spider):
-        auth = tweepy.OAuthHandler(self.tw_consumer_key, self.tw_consumer_secret)
-        auth.set_access_token(self.tw_access_token, self.tw_access_token_secret)
-        self.tweepy_api = tweepy.API(auth)
+        tw_auth = tweepy.OAuthHandler(self.tw_consumer_key, self.tw_consumer_secret)
+        tw_auth.set_access_token(self.tw_access_token, self.tw_access_token_secret)
+        self.tweepy_api = tweepy.API(tw_auth)
 
     def close_spider(self, spider):
         pass
@@ -69,18 +69,18 @@ class TwitterPipeline(object):
         if entry_feeling is exit_feeling:
             # Generate 1 tweet message for both entry and exit.
             gif_url = get_random_feeling_url(entry_feeling)
-            tweet = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb'' dhe %s deri %s minuta p'u'\xeb''r t'u'\xeb'' dalur.\n #Mir'u'\xeb''sevini #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border,str(entry_min), str(entry_max), str(exit_min), str(exit_max))
+            tw_message = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb'' dhe %s deri %s minuta p'u'\xeb''r t'u'\xeb'' dalur.\n #Mir'u'\xeb''sevini #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border,str(entry_min), str(entry_max), str(exit_min), str(exit_max))
             # tweet
-            tweet_gif(gif_url, tweet)
+            tweet_gif(gif_url, tw_message)
         else:
             # Generate 2 tweet messages: one for entry and one for exit.
             gif_url_entry = get_random_feeling_url(entry_feeling)
             gif_url_exit = get_random_feeling_url(exit_feeling)
 
-            tweet_entry = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb''. #Mir'u'\xeb''sevini' % (border,str(entry_min), str(entry_max))
-            tweet_exit = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb''dal'u'\xeb'' nga #Kosova. #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border, str(exit_min), str(exit_max))
+            tw_message_entry = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb''. #Mir'u'\xeb''sevini' % (border,str(entry_min), str(entry_max))
+            tw_message_exit = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb''dal'u'\xeb'' nga #Kosova. #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border, str(exit_min), str(exit_max))
 
             # tweet
-            tweet_gif(gif_url_entry, tweet_entry)
-            tweet_gif(gif_url_exit, tweet_exit)
+            tweet_gif(gif_url_entry, tw_message_entry)
+            tweet_gif(gif_url_exit, tw_message_exit)
         return item

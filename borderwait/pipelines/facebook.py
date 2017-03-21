@@ -2,18 +2,18 @@ import requests, random
 
 # Post on Facebook about the new item
 class FacebookPipeline(object):
-    def __init__(self, fb_access_token, fb_gifs):
+    def __init__(self, fb_access_token, fb_gif_urls):
         self.fb_access_token = fb_access_token
-        self.fb_gifs = fb_gifs
+        self.fb_gif_urls = fb_gif_urls
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             fb_access_token=crawler.settings.get('FACEBOOK_ACCESS_TOKEN'),
-            fb_gifs=crawler.settings.get('WAIT_TIME_GIF_URLS')
+            fb_gif_urls=crawler.settings.get('WAIT_TIME_GIF_URLS')
         )
 
     def open_spider(self, spider):
-        self.fb_url = 'https://graph.facebook.com/me/feed?access_token='+self.fb_access_token
+        self.fb_auth = 'https://graph.facebook.com/me/feed?access_token='+self.fb_access_token
 
     def close_spider(self, spider):
         pass
@@ -40,12 +40,12 @@ class FacebookPipeline(object):
                 return feeling[3]
 
         def get_random_feeling_url(feeling):
-            url = random.choice(self.fb_gifs[feeling])
+            url = random.choice(self.fb_gif_urls[feeling])
             return url
 
         def fb_gif(url, message):
-            post = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
-            facebook_post = requests.post(self.fb_url, data=post).text
+            post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
+            facebook_post = requests.post(self.fb_auth, data=post_content).text
 
         entry_feeling = get_feeling(entry_max)
         exit_feeling = get_feeling(exit_max)
