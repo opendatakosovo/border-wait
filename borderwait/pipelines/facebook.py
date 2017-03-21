@@ -13,7 +13,7 @@ class FacebookPipeline(object):
         )
 
     def open_spider(self, spider):
-        self.fb_url = 'https://graph-video.facebook.com/me/videos?access_token='+self.fb_access_token
+        self.fb_url = 'https://graph.facebook.com/me/feed?access_token='+self.fb_access_token
 
     def close_spider(self, spider):
         pass
@@ -26,26 +26,25 @@ class FacebookPipeline(object):
         exit_max = item['exit']['max']
 
         def get_feeling(max_min):
-            feeling = ''
-            great=range(0,6)
-            ok=(6,11)
-            bad=(11,31)
-            if max_min in great:
-                feeling='great'
-            elif max_min in ok:
-                feeling='ok'
-            elif max_min in bad:
-                feeling='bad'
+            feeling = ['great','ok','bad','horrible']
+            feeling_great=range(0,6)
+            feeling_ok=range(6,11)
+            feeling_bad=range(11,46)
+            if max_min in feeling_great:
+                return feeling[0]
+            elif max_min in feeling_ok:
+                return feeling[1]
+            elif max_min in feeling_bad:
+                return feeling[2]
             else:
-                feeling='horrible'
-            return feeling
+                return feeling[3]
 
         def get_random_feeling_url(feeling):
             url = random.choice(self.fb_gifs[feeling])
             return url
 
         def fb_gif(url, message):
-            post = {'message': '%s' %(message), 'description': '%s' %(message), 'file_url': '%s' %(str(url))}
+            post = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
             facebook_post = requests.post(self.fb_url, data=post).text
 
         entry_feeling = get_feeling(entry_max)

@@ -34,19 +34,18 @@ class TwitterPipeline(object):
         exit_max = item['exit']['max']
 
         def get_feeling(max_min):
-            feeling = ''
-            great=range(0,6)
-            ok=(6,11)
-            bad=(11,31)
-            if max_min in great:
-                feeling='great'
-            elif max_min in ok:
-                feeling='ok'
-            elif max_min in bad:
-                feeling='bad'
+            feeling = ['great','ok','bad','horrible']
+            feeling_great=range(0,6)
+            feeling_ok=(6,11)
+            feeling_bad=(11,46)
+            if max_min in feeling_great:
+                return feeling[0]
+            elif max_min in feeling_ok:
+                return feeling[1]
+            elif max_min in feeling_bad:
+                return feeling[2]
             else:
-                feeling='horrible'
-            return feeling
+                return feeling[3]
 
         def get_random_feeling_url(feeling):
             url = random.choice(self.tw_gifs[feeling])
