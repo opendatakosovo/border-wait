@@ -26,7 +26,7 @@ class MongoPipeline(object):
     def process_item(self, item, spider):
         dbs = self.client.database_names()
         #IF DB IS EMPTY OR NOR CREATED YET CREATE IT AND FILL IT WITH DATA.
-        if self.db not in dbs:
+        if self.db not in dbs or self.db[self.mongo_collection].count() == 0:
             self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
             return item
         else:
