@@ -26,10 +26,7 @@ class MongoPipeline(object):
     def process_item(self, item, spider):
         dbs = self.client.database_names()
         #IF DB IS EMPTY OR NOR CREATED YET CREATE IT AND FILL IT WITH DATA.
-        if self.db not in dbs or self.db[self.mongo_collection].count() == 0:
-            self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
-            return item
-        else:
+        if self.db.name in dbs:
             border = item['border']
             time = item['time']
             latest_doc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
@@ -40,3 +37,6 @@ class MongoPipeline(object):
                 else:
                     self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
                     return item
+        else:
+            self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
+            return item
