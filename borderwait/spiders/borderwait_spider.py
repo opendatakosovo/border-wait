@@ -12,7 +12,7 @@ class BorderWaitSpider(scrapy.Spider):
         data = response.xpath('//div[@class="home-table"]//tr//td/text()').extract()
         border_crossings = list(self.chunks(data, 5))
         for bc in border_crossings:
-            item = BorderItem()
+            item = BorderWaitItem()
             item["date"] = datetime.datetime.strptime(dt, "%d.%m.%Y %H:%M")
             item["time"] = dt.split(' ')[1]
             item["border"] = bc[0].replace(' ', '')
