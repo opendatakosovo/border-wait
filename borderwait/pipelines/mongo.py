@@ -29,10 +29,11 @@ class MongoPipeline(object):
         if self.db.name in dbs:
             border = item['border']
             time = item['time']
-            latest_doc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
-            if latest_doc:
-                for res in latest_doc:
-                    if time == res['border']['time'] and border == res['border']['border']:
+            latestDoc = self.db[self.mongo_collection].find_one({"border.border": border})
+            if latestDoc:
+                latestDoc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
+                for value in latestDoc:
+                    if time == value['border']['time'] and border == value['border']['border']:
                         self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
                         raise DropItem("Duplicate item found: %s" % item)
                     else:
@@ -41,7 +42,6 @@ class MongoPipeline(object):
             else:
                 self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
                 return item
-
         else:
             self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
             return item
