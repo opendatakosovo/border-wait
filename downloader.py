@@ -1,3 +1,5 @@
+import os, requests
+
 WAIT_TIME_GIF_URLS = {
    'great': [
       'http://i.giphy.com/kGMPV3ehtc7aE.gif',

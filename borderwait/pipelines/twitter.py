@@ -55,8 +55,6 @@ class TwitterPipeline(object):
             gif = url.split('/')[3]
             request = requests.get(url, stream=True)
             self.tweepy_api.update_with_media(gif, status=message)
-            else:
-                print("Unable to download gif")
 
         entry_feeling = get_feeling(entry_max)
         exit_feeling = get_feeling(exit_max)
