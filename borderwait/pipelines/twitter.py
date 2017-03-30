@@ -52,14 +52,9 @@ class TwitterPipeline(object):
             return url
 
         def tweet_gif(url, message):
-            gif = 'post.gif'
+            gif = url.split('/')[3]
             request = requests.get(url, stream=True)
-            if request.status_code == 200:
-                with open(gif, 'wb') as gf:
-                    for chunk in request:
-                        gf.write(chunk)
-                self.tweepy_api.update_with_media(gif, status=message)
-                os.remove(gif)
+            self.tweepy_api.update_with_media(gif, status=message)
             else:
                 print("Unable to download gif")
 
