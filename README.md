@@ -36,6 +36,10 @@ Update package lists and install the scrapy package:
 ```
 sudo apt-get update && sudo apt-get install scrapy
 ```
+Scrapyd service for deploying and managing spiders:
+```
+sudo apt-get install scrapyd
+```
 
 Scrapyd-deploy for deploying the scrapy project:
 
@@ -43,12 +47,22 @@ Scrapyd-deploy for deploying the scrapy project:
 sudo apt-get install scrapyd-deploy
 ```
 
+We need to install scrapy python packages aswell:
+```
+sudo pip install scrapy
+```
+
 Go inside the projects folder and install the python scrapyd inside the package:
 ```
 sudo pip install -e git+https://github.com/scrapy/scrapyd.git#egg=scrapyd
 ```
 
-## Deploying the project
+NOTE!!! In order to avoid some errors, you have to downgrade the Twisted package to version 16.4.1:
+```
+sudo pip install Twisted==16.4.1
+```
+
+### Deploying the project
 
 ```
 scrapyd-deploy -p borderwait
