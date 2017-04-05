@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to install the software and how to install them.
 
 * [Ubuntu 14.04 LTS](https://www.ubuntu.com/)
 * [Scrapy](http://scrapy.readthedocs.io/en/latest/) - The python web crawling framework.
@@ -16,11 +16,11 @@ What things you need to install the software and how to install them
 * [Tweepy](http://tweepy.readthedocs.io/en/v3.5.0/) - The python library for accessing the Twitter API.
 * [MongoDB & Pymongo](https://www.mongodb.com/) - Nosql open-source databse & Pymongo a python distribution that contains tools for working with MongoDB.
 
-### Installing
+## Installing
 
-Ubuntu packages
+#### Ubuntu packages
 
-These packages are currently not updated and may not work on Ubuntu 16.04 and above
+These packages are currently not updated and may not work on Ubuntu 16.04 and above.
 
 
 Import the GPG key used to sign Scrapy packages into APT keyring:
@@ -36,20 +36,18 @@ Update package lists and install the scrapy package:
 sudo apt-get update && sudo apt-get install scrapy
 ```
 
-Scrapyd-deploy for deploying the scrapy project
+Scrapyd-deploy for deploying the scrapy project:
 
 ```
 sudo apt-get install scrapyd-deploy
 ```
-
-## Deploying the project
 
 Go inside the projects folder and install the python scrapyd inside the package:
 ```
 sudo pip install -e git+https://github.com/scrapy/scrapyd.git#egg=scrapyd
 ```
 
-Deploy the project
+## Deploying the project
 
 ```
 scrapyd-deploy -p borderwait
