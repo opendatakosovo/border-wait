@@ -18,7 +18,7 @@ What things you need to install the software and how to install them.
 
 ## Installing
 
-#### Ubuntu packages
+##### Ubuntu packages
 
 These packages are currently not updated and may not work on Ubuntu 16.04 and above.
 
@@ -31,6 +31,7 @@ Create /etc/apt/sources.list.d/scrapy.list file using the following command:
 ```
 echo 'deb http://archive.scrapy.org/ubuntu scrapy main' | sudo tee /etc/apt/sources.list.d/scrapy.list
 ```
+##### Installing Scrapy & Scrapyd
 Update package lists and install the scrapy package:
 ```
 sudo apt-get update && sudo apt-get install scrapy
