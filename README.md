@@ -63,4 +63,4 @@ curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderw
 
 ## Authors
 
-* **Georges Labrèche** & **Diamant Haxhimusa** *
+* **Georges Labrèche** & **Diamant Haxhimusa**
