@@ -1,6 +1,6 @@
 # border-wait
 
-BorderWait project is a python web crawler, which crawl the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](mpb-ks.org/qkmk/) and posts the delays of each border with a gif on facebook and twitter.
+BorderWait project is a python web crawler which crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](mpb-ks.org/qkmk/) and posts the delays at each border with a random gif on facebook and twitter.
 
 ## Getting Started
 
@@ -18,9 +18,9 @@ What things you need to install the software and how to install them.
 
 ## Installing
 
-##### Ubuntu packages
+#### Ubuntu packages
 
-These packages are currently not updated and may not work on Ubuntu 16.04 and above.
+These packages are currently not updated and may not work on Ubuntu 16.04 or later versions.
 
 
 Import the GPG key used to sign Scrapy packages into APT keyring:
@@ -31,7 +31,7 @@ Create /etc/apt/sources.list.d/scrapy.list file using the following command:
 ```
 echo 'deb http://archive.scrapy.org/ubuntu scrapy main' | sudo tee /etc/apt/sources.list.d/scrapy.list
 ```
-##### Installing Scrapy & Scrapyd
+#### Installing Scrapy & Scrapyd
 Update package lists and install the scrapy package:
 ```
 sudo apt-get update && sudo apt-get install scrapy
@@ -47,7 +47,7 @@ Scrapyd-deploy for deploying the scrapy project:
 sudo apt-get install scrapyd-deploy
 ```
 
-We need to install scrapy python packages aswell:
+We need to install scrapy python packages as well:
 ```
 sudo pip install scrapy
 ```
