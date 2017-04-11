@@ -17,13 +17,18 @@ These packages are currently not updated and may not work on Ubuntu 16.04 or lat
 
 Import the GPG key used to sign Scrapy packages into APT keyring:
 ```
-sudapt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 627220E7
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 627220E7
 ```
 Create /etc/apt/sources.list.d/scrapy.list file using the following command:
 ```
 echo 'deb http://archive.scrapy.org/ubuntu scrapy main' | sudo tee /etc/apt/sources.list.d/scrapy.list
 ```
 #### Installing Scrapy & Scrapyd
+Install these dependecies in order to install Scrapy:
+```
+sudo apt-get install python-dev python-pip libxml2-dev libxslt1-dev zlib1g-dev libffi-dev libssl-dev
+```
+
 Update package lists and install the scrapy package:
 ```
 sudo apt-get update && sudo apt-get install scrapy
