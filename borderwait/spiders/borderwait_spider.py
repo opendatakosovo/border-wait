@@ -16,9 +16,9 @@ class BorderWaitSpider(scrapy.Spider):
             item["date"] = datetime.datetime.strptime(dt, "%d.%m.%Y %H:%M")
             item["time"] = dt.split(' ')[1]
             item["border"] = bc[0].replace(' ', '')
-            entry = [int(d) for d in bc[1].split('-')]
+            entry = [int(d.replace(' ', '')) for d in bc[1].split('-')]
             item["entry"] = {'min':entry[0], 'max':entry[1]}
-            exit = [int(d) for d in bc[2].split('-')]
+            exit = [int(d.replace(' ', '')) for d in bc[2].split('-')]
             item["exit"] = {'min':exit[0], 'max':exit[1]}
             item["entry_q"] = bc[3].replace(' ', '').replace('m','')
             item["exit_q"] = bc[4].replace(' ', '').replace('m','')
