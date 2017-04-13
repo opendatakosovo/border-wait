@@ -11,9 +11,8 @@ What things you need to install the software and how to install them.
 * [MongoDB & Pymongo](https://www.mongodb.com/) - Nosql open-source databse & Pymongo a python distribution that contains tools for working with MongoDB.
 
 ### Initial Setup
-Ubuntu packages:
 
-These packages are currently not updated and may not work on Ubuntu 16.04 or later versions.
+**NOTE!!!** These packages are currently not updated and may not work on Ubuntu 16.04 or later versions.
 
 Import the GPG key used to sign Scrapy packages into APT keyring:
 ```
@@ -54,7 +53,7 @@ Go inside the projects folder and install the python scrapyd inside the package:
 sudo pip install -e git+https://github.com/scrapy/scrapyd.git#egg=scrapyd
 ```
 
-NOTE!!! In order to avoid some errors, you have to downgrade the Twisted package to version 16.4.1:
+**NOTE!!!** In order to avoid some errors, you have to downgrade the Twisted package to version 16.4.1:
 ```
 sudo pip install Twisted==16.4.1
 ```
@@ -100,6 +99,8 @@ python downloader.py
 ```
 
 #### Deploying the project
+
+Go inside the project's folder and type:
 ```
 scrapyd-deploy -p borderwait
 ```
@@ -108,6 +109,66 @@ scrapyd-deploy -p borderwait
 
 ```
 curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderwait
+```
+### Securing Scrapyd service
+First of all you need to block scrapyd to be accessed by outside the server. To do this you have to edit the scrapyd configuration file:
+```
+sudo nano /etc/scrapyd/conf.d/000-default
+```
+then add a bind address above the port and set it to 127.0.0.1(default is set to 0.0.0.0):
+```
+bind_address = 127.0.0.1
+```
+the restart scrapyd service:
+```
+sudo service scrapyd stop
+sudo service scrapyd start
+```
+
+#### Installing prerequisites
+
+Install nginx for the reverse proxy and apache2-utils for the login security:
+```
+sudo apt-get install nginx apache2-utils
+```
+Now create a user and password:
+```
+sudo htpasswd -c /etc/nginx/.htpasswd <type your username>
+```
+hit enter and will ask you for a password.
+Then you need to edit the configurations file of nginx to create a reverse proxy to the scrapyd webservice.
+```
+sudo nano /etc/nginx/sites-available/default
+```
+then edit the config file according to this:
+```
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        root /usr/share/nginx/html;
+
+        # Make site accessible from http://localhost/
+        server_name _;
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        location ~ /\.ht {
+                deny all;
+        }
+        
+        location / {
+                proxy_pass http://localhost:6800;
+                auth_basic "Restricted Content";
+                auth_basic_user_file /etc/nginx/.htpasswd;
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                #try_files $uri $uri/ =404;
+        }
+}
+```
+now reload nginx service:
+```
+sudo service nginx reload
 ```
 
 ## Authors
