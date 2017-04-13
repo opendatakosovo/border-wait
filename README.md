@@ -9,6 +9,7 @@ What things you need to install the software and how to install them.
 * [Scrapyd](http://scrapyd.readthedocs.io/en/latest/) - Scrapyd is an application for deploying and running Scrapy spiders.
 * [Tweepy](http://tweepy.readthedocs.io/en/v3.5.0/) - The python library for accessing the Twitter API.
 * [MongoDB & Pymongo](https://www.mongodb.com/) - Nosql open-source databse & Pymongo a python distribution that contains tools for working with MongoDB.
+* [Nginx](https://www.nginx.com/) - NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more.
 
 ### Initial Setup
 
