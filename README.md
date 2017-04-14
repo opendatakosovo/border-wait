@@ -1,6 +1,6 @@
 # border-wait
 
-BorderWait project is a python web crawler which crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](mpb-ks.org/qkmk/) and posts the delays at each border with a random gif on facebook and twitter.
+BorderWait project is a python web crawler which crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](http://www.mpb-ks.org/qkmk/) and posts the delays at each border with a random gif on facebook and twitter.
 
 ### Environment
 What things you need to install the software and how to install them.
@@ -174,4 +174,4 @@ sudo service nginx reload
 
 ## Authors
 
-* **Georges Labrèche** & **Diamant Haxhimusa**
+* **[Georges Labrèche](https://github.com/georgeslabreche)** & **[Diamant Haxhimusa](https://github.com/diamanthaxhimusa)**
