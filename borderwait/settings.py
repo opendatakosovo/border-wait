@@ -38,6 +38,29 @@ FACEBOOK_ACCESS_TOKEN = ''
 # PATH TO SAVE GIFS . DEFAULT IS THE PROJECT DIRECTORY
 GIFS_DIRECTORY = './'
 
+# TWEEPY ALLOWS POSTING GIFS AT MAX SIZE OF 3MB, SO WE CHECK IF GIF IS UNDER 3MB.
+# BY DEFAULT IS 3MB
+GIF_MAX_SIZE = 30000
+
+# SET THE RANGE OF TIME THE FEELINGS GET BASED ON
+FEELINGS = {
+    'great':{
+        # GREAT USES JUST THE MAXIMUM, WE DON'T CARE FOR THE MINIMUM
+        'max':5
+    },
+    'ok':{
+        'min':5,
+        'max':10
+    },
+    'bad':{
+        'min':10,
+        'max':45
+        },
+    # HORRIBLE USES JUST THE MINIMUM 46 MINUTES AND DOESN'T HAVE MAKSIMUM, IT GOES TO INFINITE
+    'horrible':{'min':46}
+}
+
+# GIF URLS THAT WE USE FOR POSTING
 WAIT_TIME_GIF_URLS = {
    'great': [
       'http://i.giphy.com/kGMPV3ehtc7aE.gif',

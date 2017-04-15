@@ -2,14 +2,16 @@ import requests, random
 
 # Post on Facebook about the new item
 class FacebookPipeline(object):
-    def __init__(self, fb_access_token, fb_gif_urls):
+    def __init__(self, fb_access_token, fb_gif_urls, feelings):
         self.fb_access_token = fb_access_token
         self.fb_gif_urls = fb_gif_urls
+        self.feelings = feelings
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             fb_access_token=crawler.settings.get('FACEBOOK_ACCESS_TOKEN'),
-            fb_gif_urls=crawler.settings.get('WAIT_TIME_GIF_URLS')
+            fb_gif_urls=crawler.settings.get('WAIT_TIME_GIF_URLS'),
+            feelings=crawler.settings.get('FEELINGS')
         )
 
     def open_spider(self, spider):
@@ -27,19 +29,25 @@ class FacebookPipeline(object):
 
         def get_feeling(max_min):
             feeling = ['great','ok','bad','horrible']
-            feeling_great=range(0,6)
-            feeling_ok=range(6,11)
-            feeling_bad=range(11,46)
-            if max_min in feeling_great:
+            feeling_great_max= self.feelings['great']['max']
+            feeling_ok_min = self.feelings['great']['min']
+            feeling_ok_max = self.feelings['great']['max']
+            feeling_bad_min = self.feelings['great']['min']
+            feeling_bad_max = self.feelings['great']['max']
+            feeling_horrible = self.feelings['horrible']['min']
+            if max_min < feeling_great_max:
                 return feeling[0]
-            elif max_min in feeling_ok:
+            elif feeling_ok_min < max_min and max_min < feeling_ok_max:
                 return feeling[1]
-            elif max_min in feeling_bad:
+            elif feeling_bad_min < max_min and max_min < feeling_bad_max:
                 return feeling[2]
-            else:
+            elif max_min > feeling_horrible:
                 return feeling[3]
+            else:
+                feeling[0]
 
         def get_random_feeling_url(feeling):
+            # here we pick a random gif url from the feeling array to post it on facebook
             url = random.choice(self.fb_gif_urls[feeling])
             return url
 

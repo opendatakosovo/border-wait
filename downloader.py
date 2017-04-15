@@ -3,6 +3,7 @@ from borderwait import settings
 
 gifs_directory = settings.GIFS_DIRECTORY
 WAIT_TIME_GIF_URLS = settings.WAIT_TIME_GIF_URLS
+max_gif_size = settings.GIF_MAX_SIZE
 
 feelings = ['great', 'ok', 'bad', 'horrible']
 for feels in feelings:
@@ -26,7 +27,7 @@ for feels in feelings:
                     for chunk in request:
                         gf.write(chunk)
                     # Tweepy allows posting gifs at max size of 3mb, so we check if gif is under 3mb.
-                    if os.path.getsize(gif) > 3000000:
+                    if os.path.getsize(gif) > max_gif_size:
                         print 'size is too big, deleting file '+ gif_name
                         os.remove(gif)
                     else:

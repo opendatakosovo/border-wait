@@ -29,10 +29,16 @@ class MongoPipeline(object):
         if self.db.name in dbs:
             border = item['border']
             time = item['time']
-            latestDoc = self.db[self.mongo_collection].find_one({"border.border": border})
-            if latestDoc:
-                latestDoc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
-                for value in latestDoc:
+            # latest_doc is equal to the border name
+            latest_doc = self.db[self.mongo_collection].find_one({"border.border": border})
+            # here we check if the the border name exists on the database, if not we save it
+            if latest_doc:
+                # here we set the laatest doc to the last saved doc by that border name
+                latest_doc = self.db[self.mongo_collection].find({"border.border": border}).sort("timestamp", -1).limit(1)
+                for value in latest_doc:
+                    # here we check if the time the gov. updated the delays is equal to the last saved time from database
+                    # AND if name of the border is equal to the latest doc
+                    # if yes then we save the border to database and stop the process from going to the next pipeline(stoping social media posting)
                     if time == value['border']['time'] and border == value['border']['border']:
                         self.db[self.mongo_collection].insert(dict({"timestamp" : datetime.datetime.now() , "border": item }))
                         raise DropItem("Duplicate item found: %s" % item)

@@ -20,8 +20,18 @@ class BorderWaitSpider(scrapy.Spider):
             item["entry"] = {'min':entry[0], 'max':entry[1]}
             exit = [int(d.replace(' ', '')) for d in bc[2].split('-')]
             item["exit"] = {'min':exit[0], 'max':exit[1]}
-            item["entry_q"] = bc[3].replace(' ', '').replace('m','')
-            item["exit_q"] = bc[4].replace(' ', '').replace('m','')
+            entryq = []
+            if '-' in bc[3]:
+                entryq = [int(en.replace(' ','')) for en in bc[3].split('-')]
+            else:
+                entryq = [int(bc[3]),int(bc[3])]
+            item["entry_q"] = {'min':entryq[0], 'max':entryq[1]}
+            exitq = []
+            if '-' in bc[4]:
+                exitq = [int(ex.replace(' ','')) for ex in bc[4].split('-')]
+            else:
+                exiq = [int(bc[4]), int(bc[4])]
+            item["exit_q"] = {'min': exit[0], 'max':exitq[1]}
             yield item
 
     def chunks(self, l, n):

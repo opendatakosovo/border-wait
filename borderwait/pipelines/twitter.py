@@ -2,13 +2,14 @@ import tweepy, os, requests, random
 
 # Tweet about the new item
 class TwitterPipeline(object):
-    def __init__(self, tw_consumer_key, tw_consumer_secret, tw_access_token, tw_access_token_secret, tw_gifs, path_to_gifs):
+    def __init__(self, tw_consumer_key, tw_consumer_secret, tw_access_token, tw_access_token_secret, tw_gifs, path_to_gifs, feelings):
         self.tw_consumer_key = tw_consumer_key
         self.tw_consumer_secret = tw_consumer_secret
         self.tw_access_token = tw_access_token
         self.tw_access_token_secret = tw_access_token_secret
         self.tw_gifs = tw_gifs
         self.path_to_gifs = path_to_gifs
+        self.feelings = feelings
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
@@ -17,7 +18,8 @@ class TwitterPipeline(object):
             tw_access_token=crawler.settings.get('TWITTER_ACCESS_TOKEN'),
             tw_access_token_secret=crawler.settings.get('TWITTER_ACCESS_TOKEN_SECRET'),
             tw_gifs=crawler.settings.get('WAIT_TIME_GIF_URLS'),
-            path_to_gifs=crawler.settings.get('GIFS_DIRECTORY')
+            path_to_gifs=crawler.settings.get('GIFS_DIRECTORY'),
+            feelings=crawler.settings.get('FEELINGS')
         )
 
     def open_spider(self, spider):
@@ -37,19 +39,25 @@ class TwitterPipeline(object):
 
         def get_feeling(max_min):
             feeling = ['great','ok','bad','horrible']
-            feeling_great=range(0,6)
-            feeling_ok=(6,11)
-            feeling_bad=(11,46)
-            if max_min in feeling_great:
+            feeling_great_max= self.feelings['great']['max']
+            feeling_ok_min = self.feelings['great']['min']
+            feeling_ok_max = self.feelings['great']['max']
+            feeling_bad_min = self.feelings['great']['min']
+            feeling_bad_max = self.feelings['great']['max']
+            feeling_horrible = self.feelings['horrible']['min']
+            if max_min <= feeling_great_max:
                 return feeling[0]
-            elif max_min in feeling_ok:
+            elif feeling_ok_min < max_min and max_min <= feeling_ok_max:
                 return feeling[1]
-            elif max_min in feeling_bad:
+            elif feeling_bad_min < max_min and max_min <= feeling_bad_max:
                 return feeling[2]
-            else:
+            elif feeling_horrible <= max_min:
                 return feeling[3]
+            else:
+                feeling[0]
 
         def get_random_feeling_path(feeling):
+            # here we list all the files ending with .gif inside the feeling folder where gifs are saved and we pick a gif by random
             filelist = [ f for f in os.listdir('%s/%s/'%(self.path_to_gifs, feeling)) if f.endswith(".gif") ]
             path = random.choice(filelist)
             return '%s/%s/%s'%(self.path_to_gifs, feeling, path)
