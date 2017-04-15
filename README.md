@@ -12,6 +12,9 @@ What things you need to install the software and how to install them.
 * [Nginx](https://www.nginx.com/) - NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more.
 
 ### Initial Setup
+GPG (GNU Privacy Guard) is the tool used in secure apt to sign files and check their signatures.
+
+apt-key is a program that is used to manage a keyring of gpg keys for secure apt. The keyring is kept in the file /etc/apt/trusted.gpg (not to be confused with the related but not very interesting  /etc/apt/trustdb.gpg). apt-key can be used to show the keys in the keyring, and to add or remove a key.
 
 **NOTE!!!** These packages are currently not updated and may not work on Ubuntu 16.04 or later versions.
 
@@ -107,7 +110,7 @@ scrapyd-deploy -p borderwait
 ```
 
 #### Running the spiders
-
+Scrapyd can be accessed by outside since it uses the localhost(0.0.0.0), so we need to block it by changing the localhost to 127.0.0.1 which blocks outside world from entering.
 ```
 curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderwait
 ```
