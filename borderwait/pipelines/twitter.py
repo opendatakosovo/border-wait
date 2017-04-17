@@ -71,7 +71,7 @@ class TwitterPipeline(object):
         if entry_feeling is exit_feeling:
             # Generate 1 tweet message for both entry and exit.
             gif_path = get_random_feeling_path(entry_feeling)
-            tw_message = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb'' dhe %s deri %s minuta p'u'\xeb''r t'u'\xeb'' dalur.\n #Mir'u'\xeb''sevini #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border,str(entry_min), str(entry_max), str(exit_min), str(exit_max))
+            tw_message = message_generator.enter_exit(border, entry_min, entry_max, exit_min, exit_max)
             # tweet
             tweet_gif(gif_path, tw_message)
         else:
@@ -79,8 +79,8 @@ class TwitterPipeline(object):
             gif_path_entry = get_random_feeling_path(entry_feeling)
             gif_path_exit = get_random_feeling_path(exit_feeling)
 
-            tw_message_entry = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb''. #Mir'u'\xeb''sevini' % (border,str(entry_min), str(entry_max))
-            tw_message_exit = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb''dal'u'\xeb'' nga #Kosova. #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border, str(exit_min), str(exit_max))
+            tw_message_entry = message_generator.enter(border,entry_min, entry_max)
+            tw_message_exit = message_generator.exit(border, exit_min, exit_max)
 
             # tweet
             tweet_gif(gif_path_entry, tw_message_entry)

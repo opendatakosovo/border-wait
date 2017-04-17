@@ -1,5 +1,5 @@
 import requests, random
-
+from borderwait import message_generator
 # Post on Facebook about the new item
 class FacebookPipeline(object):
     def __init__(self, fb_access_token, fb_gif_urls, feelings):
@@ -30,10 +30,10 @@ class FacebookPipeline(object):
         def get_feeling(max_min):
             feeling = ['great','ok','bad','horrible']
             feeling_great_max= self.feelings['great']['max']
-            feeling_ok_min = self.feelings['great']['min']
-            feeling_ok_max = self.feelings['great']['max']
-            feeling_bad_min = self.feelings['great']['min']
-            feeling_bad_max = self.feelings['great']['max']
+            feeling_ok_min = self.feelings['ok']['min']
+            feeling_ok_max = self.feelings['ok']['max']
+            feeling_bad_min = self.feelings['bad']['min']
+            feeling_bad_max = self.feelings['bad']['max']
             feeling_horrible = self.feelings['horrible']['min']
             if max_min < feeling_great_max:
                 return feeling[0]
@@ -44,7 +44,7 @@ class FacebookPipeline(object):
             elif max_min > feeling_horrible:
                 return feeling[3]
             else:
-                feeling[0]
+                return feeling[0]
 
         def get_random_feeling_url(feeling):
             # here we pick a random gif url from the feeling array to post it on facebook
@@ -61,7 +61,7 @@ class FacebookPipeline(object):
         if entry_feeling is exit_feeling:
             # Generate 1 fb message for both entry and exit.
             gif_url = get_random_feeling_url(entry_feeling)
-            fb_message = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb'' dhe %s deri %s minuta p'u'\xeb''r t'u'\xeb'' dalur.\n #Mir'u'\xeb''sevini #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border,str(entry_min), str(entry_max), str(exit_min), str(exit_max))
+            fb_message = message_generator.enter_exit(border, entry_min, entry_max, exit_min, exit_max)
             # fb
             fb_gif(gif_url, fb_message)
         else:
@@ -69,8 +69,8 @@ class FacebookPipeline(object):
             gif_url_entry = get_random_feeling_url(entry_feeling)
             gif_url_exit = get_random_feeling_url(exit_feeling)
 
-            fb_message_entry = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb'' hyr'u'\xeb'' n'u'\xeb'' #Kosov'u'\xeb''. #Mir'u'\xeb''sevini' % (border,str(entry_min), str(entry_max))
-            fb_message_exit = 'Kufiri #%s: pritja 'u'\xeb''sht'u'\xeb'' %s deri %s minuta p'u'\xeb''r t'u'\xeb''dal'u'\xeb'' nga #Kosova. #Rrug'u'\xeb''T'u'\xeb''Mbar'u'\xeb''' % (border, str(exit_min), str(exit_max))
+            fb_message_entry = message_generator.enter(border,entry_min, entry_max)
+            fb_message_exit = message_generator.exit(border, exit_min, exit_max)
 
             # fb
             fb_gif(gif_url_entry, fb_message_entry)
