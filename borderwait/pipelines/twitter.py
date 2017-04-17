@@ -40,10 +40,10 @@ class TwitterPipeline(object):
         def get_feeling(max_min):
             feeling = ['great','ok','bad','horrible']
             feeling_great_max= self.feelings['great']['max']
-            feeling_ok_min = self.feelings['great']['min']
-            feeling_ok_max = self.feelings['great']['max']
-            feeling_bad_min = self.feelings['great']['min']
-            feeling_bad_max = self.feelings['great']['max']
+            feeling_ok_min = self.feelings['ok']['min']
+            feeling_ok_max = self.feelings['ok']['max']
+            feeling_bad_min = self.feelings['bad']['min']
+            feeling_bad_max = self.feelings['bad']['max']
             feeling_horrible = self.feelings['horrible']['min']
             if max_min <= feeling_great_max:
                 return feeling[0]
