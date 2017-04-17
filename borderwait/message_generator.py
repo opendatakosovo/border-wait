@@ -19,7 +19,7 @@ def convert_time(min_time, max_time):
     text = ''
     if min_hours == 0 and max_hours == 0:
         text += '%s deri %s minuta' % (min_minutes, max_minutes)
-    elif min_minutes == 0 and max_minutes == 0:
+    elif min_minutes == 0 and max_minutes == 0 and min_hours != max_hours:
         text += '%s deri %s or'u'\xeb''' % (min_hours, max_hours)
     elif  min_minutes != 0 and min_hours ==0 and max_minutes !=0 and max_hours !=0:
         text += '%s minuta deri %s or'u'\xeb'' e %s minuta' % (min_minutes, max_hours, max_minutes)
@@ -29,6 +29,8 @@ def convert_time(min_time, max_time):
         text += '%s or'u'\xeb'' deri %s or'u'\xeb'' e %s minuta' % (min_minutes, max_hours, max_minutes)
     elif min_minutes != 0 and min_hours !=0 and max_minutes ==0 and max_hours !=0:
         text += '%s or'u'\xeb'' e %s minuta deri %s or'u'\xeb''' % (min_hours, min_minutes, max_hours)
+    elif min_hours == max_hours and min_minutes == 0 and max_minutes == 0:
+        text += '%s or'u'\xeb''' % max_hours
     else:
         text += '%s or'u'\xeb'' e %s minuta deri %s or'u'\xeb'' e %s minuta' % (min_hours, min_minutes, max_hours, max_minutes)
     return text
