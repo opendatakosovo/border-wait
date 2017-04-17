@@ -30,8 +30,8 @@ class BorderWaitSpider(scrapy.Spider):
             if '-' in bc[4]:
                 exitq = [int(ex.replace(' ','')) for ex in bc[4].split('-')]
             else:
-                exiq = [int(bc[4]), int(bc[4])]
-            item["exit_q"] = {'min': exit[0], 'max':exitq[1]}
+                exitq = [int(bc[4]), int(bc[4])]
+            item["exit_q"] = {'min': exitq[0], 'max':exitq[1]}
             yield item
 
     def chunks(self, l, n):
