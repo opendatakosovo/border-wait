@@ -1,5 +1,5 @@
 import tweepy, os, requests, random
-
+from borderwait import message_generator
 # Tweet about the new item
 class TwitterPipeline(object):
     def __init__(self, tw_consumer_key, tw_consumer_secret, tw_access_token, tw_access_token_secret, tw_gifs, path_to_gifs, feelings):
