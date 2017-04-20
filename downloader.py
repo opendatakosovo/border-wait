@@ -5,8 +5,7 @@ gifs_directory = settings.GIFS_DIRECTORY
 WAIT_TIME_GIF_URLS = settings.WAIT_TIME_GIF_URLS
 max_gif_size = settings.GIF_MAX_SIZE
 
-feelings = ['great', 'ok', 'bad', 'horrible']
-for feels in feelings:
+for feels in WAIT_TIME_GIF_URLS:
     for url in WAIT_TIME_GIF_URLS[feels]:
         gif_name = url.split('/')[3]
         gif = '%s/%s/%s'% (gifs_directory,feels,gif_name)
