@@ -3,7 +3,7 @@
 BorderWait project is a python web crawler which crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](http://www.mpb-ks.org/qkmk/) and posts the delays at each border with a random gif on facebook and twitter.
 
 ### Environment
-What things you need to install the software and how to install them.
+What things you need to install the software.
 * [Ubuntu 14.04 LTS](https://www.ubuntu.com/)
 * [Scrapy](http://scrapy.readthedocs.io/en/latest/) - The python web crawling framework.
 * [Scrapyd](http://scrapyd.readthedocs.io/en/latest/) - Scrapyd is an application for deploying and running Scrapy spiders.
@@ -52,9 +52,9 @@ We need to install scrapy python packages as well:
 sudo pip install scrapy==1.0.5
 ```
 
-Go inside the projects folder and install the python scrapyd inside the package:
+Go inside the projects folder and install scrapyd using pip:
 ```
-sudo pip install -e git+https://github.com/scrapy/scrapyd.git#egg=scrapyd
+sudo pip install -e git+https://github.com/scrapy/scrapyd.git@32be9b85b0ba496e5a5d983ee492f1116f9cfbb9#egg=scrapyd
 ```
 
 **NOTE!!!** In order to avoid some errors, you have to downgrade the Twisted package to version 16.4.1:
@@ -159,7 +159,7 @@ server {
         location ~ /\.ht {
                 deny all;
         }
-        
+
         location / {
                 proxy_pass http://localhost:6800;
                 auth_basic "Restricted Content";

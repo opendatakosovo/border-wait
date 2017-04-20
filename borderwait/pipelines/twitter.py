@@ -31,7 +31,7 @@ class TwitterPipeline(object):
         pass
 
     def process_item(self, item, spider):
-        border = item['border']
+        border = item['border'].replace(' ', '')
         entry_min = item['entry']['min']
         entry_max = item['entry']['max']
         exit_min = item['exit']['min']
