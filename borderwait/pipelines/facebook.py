@@ -51,8 +51,14 @@ class FacebookPipeline(object):
             url = random.choice(self.fb_gif_urls[feeling])
             return url
 
-        def fb_gif(url, message):
-            post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
+        def fb_gif(url, message, feeling):
+            if feeling == "great" or feeling == "ok":
+                if 1 = random.choice(range(1,3)):
+                    post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
+                else:
+                    post_content = {'message': '%s' %(message), 'description': '%s' %(message)}
+            else:
+                post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
             facebook_post = requests.post(self.fb_auth, data=post_content).text
 
         entry_feeling = get_feeling(entry_max)
@@ -63,7 +69,7 @@ class FacebookPipeline(object):
             gif_url = get_random_feeling_url(entry_feeling)
             fb_message = message_generator.enter_exit(border, entry_min, entry_max, exit_min, exit_max)
             # fb
-            fb_gif(gif_url, fb_message)
+            fb_gif(gif_url, fb_message, entry_feeling)
         else:
             # Generate 2 fb messages: one for entry and one for exit.
             gif_url_entry = get_random_feeling_url(entry_feeling)
@@ -73,5 +79,5 @@ class FacebookPipeline(object):
             fb_message_exit = message_generator.exit(border, exit_min, exit_max)
 
             # fb
-            fb_gif(gif_url_entry, fb_message_entry)
-            fb_gif(gif_url_exit, fb_message_exit)
+            fb_gif(gif_url_entry, fb_message_entry,entry_feeling)
+            fb_gif(gif_url_exit, fb_message_exit,exit_feeling)

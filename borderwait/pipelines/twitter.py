@@ -62,8 +62,15 @@ class TwitterPipeline(object):
             path = random.choice(filelist)
             return '%s/%s/%s'%(self.path_to_gifs, feeling, path)
 
-        def tweet_gif(path, message):
-            self.tweepy_api.update_with_media(path, status=message)
+        def tweet_gif(path, message, feeling):
+            if feeling == "great" or feeling == "ok":
+                if 1 = random.choice(range(1,3)):
+                    self.tweepy_api.update_with_media(path, status=message)
+                else:
+                    self.tweepy_api.update_status(status=message)
+            else:
+                self.tweepy_api.update_with_media(path, status=message)
+
 
         entry_feeling = get_feeling(entry_max)
         exit_feeling = get_feeling(exit_max)
