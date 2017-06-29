@@ -64,7 +64,7 @@ class TwitterPipeline(object):
 
         def tweet_gif(path, message, feeling):
             if feeling == "great" or feeling == "ok":
-                if 1 = random.choice(range(1,3)):
+                if 1 == random.choice(range(1,3)):
                     self.tweepy_api.update_with_media(path, status=message)
                 else:
                     self.tweepy_api.update_status(status=message)

@@ -53,7 +53,7 @@ class FacebookPipeline(object):
 
         def fb_gif(url, message, feeling):
             if feeling == "great" or feeling == "ok":
-                if 1 = random.choice(range(1,3)):
+                if 1 == random.choice(range(1,3)):
                     post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
                 else:
                     post_content = {'message': '%s' %(message), 'description': '%s' %(message)}
