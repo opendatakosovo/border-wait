@@ -80,7 +80,7 @@ class TwitterPipeline(object):
             gif_path = get_random_feeling_path(entry_feeling)
             tw_message = message_generator.enter_exit(border, entry_min, entry_max, exit_min, exit_max)
             # tweet
-            tweet_gif(gif_path, tw_message)
+            tweet_gif(gif_path, tw_message,entry_feeling)
         else:
             # Generate 2 tweet messages: one for entry and one for exit.
             gif_path_entry = get_random_feeling_path(entry_feeling)
@@ -90,6 +90,6 @@ class TwitterPipeline(object):
             tw_message_exit = message_generator.exit(border, exit_min, exit_max)
 
             # tweet
-            tweet_gif(gif_path_entry, tw_message_entry)
-            tweet_gif(gif_path_exit, tw_message_exit)
+            tweet_gif(gif_path_entry, tw_message_entry,entry_feeling)
+            tweet_gif(gif_path_exit, tw_message_exit,exit_feeling)
         return item
