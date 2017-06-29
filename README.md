@@ -109,6 +109,11 @@ Go inside the project's folder and type:
 scrapyd-deploy -p borderwait
 ```
 
+If you want to delete deployed project:
+```
+curl http://localhost:6800/delproject.json -d project=borderwait
+```
+
 #### Running the spiders
 Scrapyd can be accessed by outside since it uses the localhost(0.0.0.0), so we need to block it by changing the localhost to 127.0.0.1 which blocks outside world from entering.
 ```
