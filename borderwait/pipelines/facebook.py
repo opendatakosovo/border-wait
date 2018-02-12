@@ -1,5 +1,6 @@
 import requests, random
 from borderwait import message_generator
+
 # Post on Facebook about the new item
 class FacebookPipeline(object):
     def __init__(self, fb_access_token, fb_gif_urls, feelings):

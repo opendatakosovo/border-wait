@@ -27,13 +27,13 @@ ROBOTSTXT_OBEY = True
 
 
 # TWITTER ACCESS TOKENS FOR TWITTER BOT
-TWITTER_CONSUMER_KEY = ''
-TWITTER_CONSUMER_SECRET = ''
-TWITTER_ACCESS_TOKEN = ''
-TWITTER_ACCESS_TOKEN_SECRET = ''
+TWITTER_CONSUMER_KEY = 'ruiSI1KGx0e0fQ3emCKXYoqua'
+TWITTER_CONSUMER_SECRET = 'VkbHmiCn0wSHOYyffeSOKOQtttSgt7qdAZ1eHp6ArprjfTqtLu'
+TWITTER_ACCESS_TOKEN = '4808470649-ru8bhbvSNUiQdXsB97ewEin9h3F4Y2ALF1gwfXK'
+TWITTER_ACCESS_TOKEN_SECRET = 'ix0eJyGiGhq3myJhkEgetVOXCJYb8IcZkFvjRR2GuXQ8P'
 
 # FACEBOOK ACCESS TOKENS FOR FACEBOOK BOT
-FACEBOOK_ACCESS_TOKEN = ''
+FACEBOOK_ACCESS_TOKEN = 'EAAFZAjN6l4YMBAAxPlFanwgpa97lnS2M2X658I5TYQmEQJZBQHuF7jtM6zLKhdq8crUMMw7XwFYqZAZA3hNgv9rXOuGbStdW8OwzQqdZCN262lrSG9hqmbcqrTzcs1UZCLZBlzVRY9ps4qMfALcGO2u81ILvzIhvq6ar025LlciUJfkURVXvtMwqOCV08Gc3WltXPcKAeDgaQZDZD'
 
 # PATH TO SAVE GIFS . DEFAULT IS THE PROJECT DIRECTORY
 GIFS_DIRECTORY = './'
@@ -46,18 +46,16 @@ GIF_MAX_SIZE = 3000000
 FEELINGS = {
     'great':{
         # GREAT USES JUST THE MAXIMUM, WE DON'T CARE FOR THE MINIMUM
-        'max':5
+        'max': 5
     },
     'ok':{
-        'min':5,
-        'max':10
+        'min': 5,
+        'max': 10
     },
     'bad':{
-        'min':10,
-        'max':45
-        },
-    # HORRIBLE USES JUST THE MINIMUM 46 MINUTES AND DOESN'T HAVE MAKSIMUM, IT GOES TO INFINITE
-    'horrible':{'min':46}
+        'min': 10,
+        'max': 45
+    }
 }
 
 # GIF URLS THAT WE USE FOR POSTING
@@ -153,9 +151,9 @@ WAIT_TIME_GIF_URLS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'borderwait.pipelines.mongo.MongoPipeline':100,
-    'borderwait.pipelines.twitter.TwitterPipeline':300,
-    'borderwait.pipelines.facebook.FacebookPipeline':600
+    'borderwait.pipelines.mongo.MongoPipeline': 1100,
+    'borderwait.pipelines.twitter.TwitterPipeline': 600
+    # 'borderwait.pipelines.facebook.FacebookPipeline': 600
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
