@@ -49,18 +49,17 @@ class TwitterPipeline(object):
         """
         def get_feeling(max_min):
             feeling = ['great','ok','bad']
-            feeling_great_max = self.feelings['great']['max'] # by default: 5
-            feeling_ok_min = self.feelings['ok']['min'] # by default: 5
-            feeling_ok_max = self.feelings['ok']['max'] # by default: 10
-            feeling_bad_min = self.feelings['bad']['min'] # by default: 10
-            feeling_bad_max = self.feelings['bad']['max'] # by default: 45
+            feeling_great_max = self.feelings['great']['max'] # by default: 30
+            feeling_ok_min = self.feelings['ok']['min'] # by default: 30
+            feeling_ok_max = self.feelings['ok']['max'] # by default: 60
+            feeling_bad_min = self.feelings['bad']['min'] # by default: 61
 
             # Comparing set min and max values with item's min and max
             if max_min <= feeling_great_max:
                 return feeling[0]
             elif feeling_ok_min < max_min and max_min <= feeling_ok_max:
                 return feeling[1]
-            elif feeling_bad_min < max_min and max_min <= feeling_bad_max:
+            elif max_min >= feeling_bad_min:
                 return feeling[2]
             else:
                 feeling[0]
@@ -81,6 +80,8 @@ class TwitterPipeline(object):
         """
         def tweet_gif(path, message):
             self.tweepy_api.update_with_media(path, status=message)
+
+
 
         # Getting the feeling based on entry max and exit max from the item being processed
         entry_feeling = get_feeling(entry_max)
@@ -105,5 +106,5 @@ class TwitterPipeline(object):
             # tweet
             tweet_gif(gif_path_entry, tw_message_entry)
             tweet_gif(gif_path_exit, tw_message_exit)
-        time.sleep(60)
+        # time.sleep(60)
         return item
