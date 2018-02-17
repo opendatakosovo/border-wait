@@ -1,5 +1,7 @@
-import requests, random
+import requests, random, sys, unicodedata
 from borderwait import message_generator
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 # Post on Facebook about the new item
 class FacebookPipeline(object):
@@ -28,38 +30,35 @@ class FacebookPipeline(object):
         exit_min = item['exit']['min']
         exit_max = item['exit']['max']
 
+        """
+            Takes max or min numbers from the item being processed,
+            will compare the parameters with min and max numbers set in feelings data in settings,
+            returns a string based on values after the compare ("great", "ok", "bad")
+        """
         def get_feeling(max_min):
-            feeling = ['great','ok','bad','horrible']
-            feeling_great_max= self.feelings['great']['max']
-            feeling_ok_min = self.feelings['ok']['min']
-            feeling_ok_max = self.feelings['ok']['max']
-            feeling_bad_min = self.feelings['bad']['min']
-            feeling_bad_max = self.feelings['bad']['max']
-            feeling_horrible = self.feelings['horrible']['min']
-            if max_min < feeling_great_max:
-                return feeling[0]
-            elif feeling_ok_min < max_min and max_min < feeling_ok_max:
-                return feeling[1]
-            elif feeling_bad_min < max_min and max_min < feeling_bad_max:
-                return feeling[2]
-            elif max_min > feeling_horrible:
-                return feeling[3]
-            else:
-                return feeling[0]
+            feeling = ['great','ok','bad']
+            feeling_great_max = self.feelings['great']['max'] # by default: 30
+            feeling_ok_min = self.feelings['ok']['min'] # by default: 30
+            feeling_ok_max = self.feelings['ok']['max'] # by default: 60
+            feeling_bad_min = self.feelings['bad']['min'] # by default: 61
 
-        def get_random_feeling_url(feeling):
-            # here we pick a random gif url from the feeling array to post it on facebook
-            url = random.choice(self.fb_gif_urls[feeling])
-            return url
+            # Comparing set min and max values with item's min and max
+            if max_min <= feeling_great_max:
+                return feeling[0]
+            elif feeling_ok_min < max_min and max_min <= feeling_ok_max:
+                return feeling[1]
+            elif max_min >= feeling_bad_min:
+                return feeling[2]
+            else:
+                feeling[0]
+
+        def get_feeling_url(feeling, border):
+            normalized_border_name = unicodedata.normalize("NFD", border).encode("ascii", "ignore")
+            url = "http://207.154.242.169:81/images/" + feeling + "/" + normalized_border_name + ".gif"
+            return url.encode('utf-8').strip()
 
         def fb_gif(url, message, feeling):
-            if feeling == "great" or feeling == "ok":
-                if 1 == random.choice(range(1,3)):
-                    post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
-                else:
-                    post_content = {'message': '%s' %(message), 'description': '%s' %(message)}
-            else:
-                post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
+            post_content = {'message': '%s' %(message), 'description': '%s' %(message),'link':str(url)}
             facebook_post = requests.post(self.fb_auth, data=post_content).text
 
         entry_feeling = get_feeling(entry_max)
@@ -67,18 +66,18 @@ class FacebookPipeline(object):
 
         if entry_feeling is exit_feeling:
             # Generate 1 fb message for both entry and exit.
-            gif_url = get_random_feeling_url(entry_feeling)
+            gif_url = get_feeling_url(entry_feeling, border)
             fb_message = message_generator.enter_exit(border, entry_min, entry_max, exit_min, exit_max)
             # fb
             fb_gif(gif_url, fb_message, entry_feeling)
         else:
             # Generate 2 fb messages: one for entry and one for exit.
-            gif_url_entry = get_random_feeling_url(entry_feeling)
-            gif_url_exit = get_random_feeling_url(exit_feeling)
+            gif_url_entry = get_feeling_url(entry_feeling, border)
+            gif_url_exit = get_feeling_url(exit_feeling, border)
 
-            fb_message_entry = message_generator.enter(border,entry_min, entry_max)
+            fb_message_entry = message_generator.enter(border, entry_min, entry_max)
             fb_message_exit = message_generator.exit(border, exit_min, exit_max)
 
             # fb
-            fb_gif(gif_url_entry, fb_message_entry,entry_feeling)
-            fb_gif(gif_url_exit, fb_message_exit,exit_feeling)
+            fb_gif(gif_url_entry, fb_message_entry, entry_feeling)
+            fb_gif(gif_url_exit, fb_message_exit, exit_feeling)

@@ -5,3 +5,6 @@ dbs
 src
 borderwait.egg-info
 dist
+.vscode
+project.egg-info
+twistd.pid

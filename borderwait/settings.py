@@ -150,7 +150,7 @@ WAIT_TIME_GIF_URLS = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'borderwait.pipelines.mongo.MongoPipeline': 1100,
-    'borderwait.pipelines.twitter.TwitterPipeline': 600
+    # 'borderwait.pipelines.twitter.TwitterPipeline': 600
     # 'borderwait.pipelines.facebook.FacebookPipeline': 600
 }
 
