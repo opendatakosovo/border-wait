@@ -60,10 +60,11 @@ class FacebookPipeline(object):
         """
         def get_video_feeling_path(feeling, border):
             # Building the path based on border name and feeling
-            # filename = border_name + '_' + feeling + '.gif'
-            # gif_filename = filename.decode('utf-8')
-            # return './%s/%s'%(self.path_to_gifs, feeling, gif_filename)
-            return './videos/great/bernjak_great.mp4'
+            normalized_border_name = unicodedata.normalize("NFD", border).encode("ascii", "ignore")
+            filename = normalized_border_name + '_' + feeling + '.mp4'
+            gif_filename = filename.decode('utf-8')
+            return './videos/%s/%s'%(feeling, gif_filename)
+            # return './videos/great/bernjak_great.mp4'
 
         """ 
             For posting a video in facebook timeline, we need to upload a video
@@ -72,7 +73,7 @@ class FacebookPipeline(object):
         """
         def post_video(video_path, message, feeling):
             # Converting the video file into multipart/form-data format
-            multipart_video = open(video_path, 'rb')
+            multipart_video = open(str(video_path), 'rb')
 
             # Preparing data content for upload video request
             upload_data = {'file': multipart_video}

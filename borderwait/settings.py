@@ -149,9 +149,9 @@ WAIT_TIME_GIF_URLS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'borderwait.pipelines.mongo.MongoPipeline': 1100,
+    # 'borderwait.pipelines.mongo.MongoPipeline': 1100,
     # 'borderwait.pipelines.twitter.TwitterPipeline': 600
-    # 'borderwait.pipelines.facebook.FacebookPipeline': 600
+    'borderwait.pipelines.facebook.FacebookPipeline': 600
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
