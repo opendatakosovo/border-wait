@@ -1,4 +1,4 @@
-import requests, random, sys, unicodedata, json
+import requests, random, sys, unicodedata, json, time
 from borderwait import message_generator
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -66,7 +66,7 @@ class FacebookPipeline(object):
             return './videos/%s/%s'%(feeling, gif_filename)
             # return './videos/great/bernjak_great.mp4'
 
-        """ 
+        """
             For posting a video in facebook timeline, we need to upload a video
             at our fb account videos, then we need to make another request
             for updating the status of that uploaded video

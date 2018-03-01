@@ -1,4 +1,4 @@
-import tweepy, os, requests, random, sys, time
+import tweepy, os, requests, random, sys, time, unicodedata
 from borderwait import message_generator
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -71,7 +71,8 @@ class TwitterPipeline(object):
         """
         def get_feeling_path(feeling, border_name):
             # Building the path based on border name and feeling
-            filename = border_name + '_' + feeling + '.gif'
+            normalized_border_name = unicodedata.normalize("NFD", border_name).encode("ascii", "ignore")
+            filename = normalized_border_name + '_' + feeling + '.gif'
             gif_filename = filename.decode('utf-8')
             return '%s/%s/%s'%(self.path_to_gifs, feeling, gif_filename)
 
@@ -80,7 +81,6 @@ class TwitterPipeline(object):
         """
         def tweet_gif(path, message):
             self.tweepy_api.update_with_media(path, status=message)
-
 
 
         # Getting the feeling based on entry max and exit max from the item being processed
