@@ -5,16 +5,18 @@ sys.setdefaultencoding('utf-8')
 
 # Post on Facebook about the new item
 class FacebookPipeline(object):
-    def __init__(self, fb_access_token, fb_gif_urls, feelings):
+    def __init__(self, fb_access_token, fb_gif_urls, feelings, global_project_dir):
         self.fb_access_token = fb_access_token
         self.fb_gif_urls = fb_gif_urls
         self.feelings = feelings
+        self.global_project_dir = global_project_dir
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             fb_access_token=crawler.settings.get('FACEBOOK_ACCESS_TOKEN'),
             fb_gif_urls=crawler.settings.get('WAIT_TIME_GIF_URLS'),
-            feelings=crawler.settings.get('FEELINGS')
+            feelings=crawler.settings.get('FEELINGS'),
+            global_project_dir=crawler.settings.get('GLOBAL_PROJECT_DIRECTORY')
         )
 
     def open_spider(self, spider):
@@ -63,7 +65,7 @@ class FacebookPipeline(object):
             normalized_border_name = unicodedata.normalize("NFD", border).encode("ascii", "ignore")
             filename = normalized_border_name + '_' + feeling + '.mp4'
             gif_filename = filename.decode('utf-8')
-            return './videos/%s/%s'%(feeling, gif_filename)
+            return '%s/videos/%s/%s'%(self.global_project_dir, feeling, gif_filename)
             # return './videos/great/bernjak_great.mp4'
 
         """

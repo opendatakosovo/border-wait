@@ -5,13 +5,13 @@ sys.setdefaultencoding('utf-8')
 
 # Tweet about the new item
 class TwitterPipeline(object):
-    def __init__(self, tw_consumer_key, tw_consumer_secret, tw_access_token, tw_access_token_secret, tw_gifs, path_to_gifs, feelings):
+    def __init__(self, tw_consumer_key, tw_consumer_secret, tw_access_token, tw_access_token_secret, tw_gifs, global_project_dir, feelings):
         self.tw_consumer_key = tw_consumer_key
         self.tw_consumer_secret = tw_consumer_secret
         self.tw_access_token = tw_access_token
         self.tw_access_token_secret = tw_access_token_secret
         self.tw_gifs = tw_gifs
-        self.path_to_gifs = path_to_gifs
+        self.global_project_dir = global_project_dir
         self.feelings = feelings
     @classmethod
     def from_crawler(cls, crawler):
@@ -21,7 +21,7 @@ class TwitterPipeline(object):
             tw_access_token=crawler.settings.get('TWITTER_ACCESS_TOKEN'),
             tw_access_token_secret=crawler.settings.get('TWITTER_ACCESS_TOKEN_SECRET'),
             tw_gifs=crawler.settings.get('WAIT_TIME_GIF_URLS'),
-            path_to_gifs=crawler.settings.get('GIFS_DIRECTORY'),
+            global_project_dir=crawler.settings.get('GLOBAL_PROJECT_DIRECTORY'),
             feelings=crawler.settings.get('FEELINGS')
         )
 
@@ -74,7 +74,7 @@ class TwitterPipeline(object):
             normalized_border_name = unicodedata.normalize("NFD", border_name).encode("ascii", "ignore")
             filename = normalized_border_name + '_' + feeling + '.gif'
             gif_filename = filename.decode('utf-8')
-            return '%s/%s/%s'%(self.path_to_gifs, feeling, gif_filename)
+            return '%s/%s/%s'%(self.global_project_dir, feeling, gif_filename)
 
         """
             Path of gif, generated message will be required to tweet a post in twitter feed

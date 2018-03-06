@@ -37,12 +37,12 @@ class BorderWaitSpider(scrapy.Spider):
             item['time'] = raw_datetime[33:]
 
             # Border entry and exit (min)
-            entry = self.conver_int(bc[1], bc)
-            exit = self.conver_int(bc[2], bc)
+            entry = self.conver_int(bc[1].strip(), bc)
+            exit = self.conver_int(bc[2].strip(), bc)
 
             # Border entry and exit traffic jam (meters)
-            entryq = self.conver_int(bc[3], bc)
-            exitq = self.conver_int(bc[4], bc)
+            entryq = self.conver_int(bc[3].strip(), bc)
+            exitq = self.conver_int(bc[4].strip(), bc)
 
             error = 'error'
             if entry == error or exit == error or entryq == error or exitq == error:

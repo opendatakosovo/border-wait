@@ -34,8 +34,8 @@ TWITTER_ACCESS_TOKEN_SECRET = ''
 # FACEBOOK ACCESS TOKENS FOR FACEBOOK BOT
 FACEBOOK_ACCESS_TOKEN = ''
 
-# PATH TO SAVE GIFS . DEFAULT IS THE PROJECT DIRECTORY
-GIFS_DIRECTORY = './'
+# GLOBAL PROJECT PATH SHOULD BE FROM ROOT PATH TO THE PROJECT PATH
+GLOBAL_PROJECT_DIRECTORY = ''
 
 # TWEEPY ALLOWS POSTING GIFS AT MAX SIZE OF 3MB, SO WE CHECK IF GIF IS UNDER 3MB.
 # BY DEFAULT IS 3MB
@@ -149,9 +149,9 @@ WAIT_TIME_GIF_URLS = {
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    # 'borderwait.pipelines.facebook.FacebookPipeline': 600
+    'borderwait.pipelines.facebook.FacebookPipeline': 600,
     # 'borderwait.pipelines.mongo.MongoPipeline': 1100,
-    # 'borderwait.pipelines.twitter.TwitterPipeline': 600
+    'borderwait.pipelines.twitter.TwitterPipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
