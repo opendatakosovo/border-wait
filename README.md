@@ -10,7 +10,8 @@ Border Wait is a python web crawler, facebook and twitter bot - crawls the data 
 * Python Twitter API: **[Tweepy](http://tweepy.readthedocs.io/en/v3.5.0/)**
 * Database: **[MongoDB](https://www.mongodb.com/)**
 * MongoDB ORM: **[PyMongo](https://api.mongodb.com/python/current/)**
-* Web Server: **[NGINX](https://www.nginx.com/)**
+* Web Server: **[Nginx](https://www.nginx.com/)**
+* Software utility as time-based scheduler: **[Cron](https://en.wikipedia.org/wiki/Cron)(Optional)**
 
 ## Setup and installing prerequisites
 GPG (GNU Privacy Guard) is the tool used in secure apt to sign files and check their signatures.
@@ -202,6 +203,56 @@ Scrapyd can be accessed by outside since it uses the localhost(0.0.0.0), so we n
 curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderwait
 ```
 
+### Configuring Item Pipelines
+There are in total three item pipelines in scrapy project **(FacebookPipeline, MongoPipeline and TwitterPipeline)**.
+You can prevent scrapy item pipelines by commenting(putting **#**) the lines of code in **settings.py** as below:
+```
+sudo nano borderwait/settings.py
+
+...
+# Configure item pipelines
+# See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+ITEM_PIPELINES = {
+    'borderwait.pipelines.facebook.FacebookPipeline': 900
+    # 'borderwait.pipelines.mongo.MongoPipeline': 1100,
+    # 'borderwait.pipelines.twitter.TwitterPipeline': 250
+}
+...
+```
+**Note:** If your project is already deployed, you must delete deployed project and deploy again in order to take affect new settings.
+
+## Configuring Scrapy Project with Cron
+If you want to invoke automatically scrapy project to start consider configuring **Cron** as a software utitily scheduler.
+Let's dive into configuration!
+
+Installing cron:
+```
+sudo apt-get install cron
+```
+
+Write tasks that will periodically repeated on a specified time:
+```
+crontab -e
+```
+
+In **crontab** file, at the end of the file, to write a cron expression firstly you need specify the time that the command will invoke automatically, the format of time is (minute, hour, day of the month, month, day of the week).
+Use this online tool to define easier your time expression [https://crontab.guru/](https://crontab.guru/)
+```
+...
+# m h  dom mon dow   command
+0 */6 * * * curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderwait
+```
+**Note:** Above cron tab expression will execute curl command every 6 hours!
+
+Restart cron:
+```
+sudo service cron restart
+```
+
+Stop cron:
+```
+sudo service cron stop
+```
 
 ## Authors
 
