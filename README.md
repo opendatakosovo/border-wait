@@ -1,4 +1,4 @@
-# Border Wait - Bot App
+# Border Wait - Crawler and Bot Application
 
 Border Wait is a python web crawler, facebook and twitter bot - crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](https://mpb.rks-gov.net/QKMK.aspx) then posts and tweets the delays at each border with a specifc gif on facebook and twitter.
 
@@ -70,6 +70,11 @@ sudo pip install -e git+https://github.com/scrapy/scrapyd.git@32be9b85b0ba496e5a
 sudo pip install Twisted==16.4.1
 ```
 
+Install dependencies:
+```
+sudo pip install pyasn1 tweepy --upgrade
+```
+
 ## Preparing the project
 
 Clone the project in your machine:
@@ -113,51 +118,24 @@ GLOBAL_PROJECT_DIRECTORY = '/home/<user>/border-wait'
 
 ## Deploying the project
 
-Go inside the project's folder and type:
-```
-scrapyd-deploy -p borderwait
-```
-
-If you want to delete deployed project:
-```
-curl http://localhost:6800/delproject.json -d project=borderwait
-```
-
-#### Running the spiders
-Scrapyd can be accessed by outside since it uses the localhost(0.0.0.0), so we need to block it by changing the localhost to 127.0.0.1 which blocks outside world from entering.
-```
-curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderwait
-```
-### Securing Scrapyd service
-First of all you need to block scrapyd to be accessed by outside the server. To do this you have to edit the scrapyd configuration file:
-```
-sudo nano /etc/scrapyd/conf.d/000-default
-```
-then add a bind address above the port and set it to 127.0.0.1(default is set to 0.0.0.0):
-```
-bind_address = 127.0.0.1
-```
-the restart scrapyd service:
-```
-sudo service scrapyd stop
-sudo service scrapyd start
-```
-
-#### Installing prerequisites
+### Installing prerequisites
 
 Install nginx for the reverse proxy and apache2-utils for the login security:
 ```
 sudo apt-get install nginx apache2-utils
 ```
+
 Now create a user and password:
 ```
 sudo htpasswd -c /etc/nginx/.htpasswd <type your username>
 ```
-hit enter and will ask you for a password.
+
+Hit enter and will ask you for a password.
 Then you need to edit the configurations file of nginx to create a reverse proxy to the scrapyd webservice.
 ```
 sudo nano /etc/nginx/sites-available/default
 ```
+
 then edit the config file according to this:
 ```
 server {
@@ -183,12 +161,48 @@ server {
                 #try_files $uri $uri/ =404;
         }
 }
+
 ```
 now reload nginx service:
 ```
 sudo service nginx reload
 ```
 
+### Securing Scrapyd service
+First of all you need to block scrapyd to be accessed by outside the server. To do this you have to edit the scrapyd configuration file:
+```
+sudo nano /etc/scrapyd/conf.d/000-default
+```
+
+then add a bind address above the port and set it to 127.0.0.1(default is set to 0.0.0.0):
+```
+bind_address = 127.0.0.1
+```
+
+the restart scrapyd service:
+```
+sudo service scrapyd restart
+```
+
+### Deploy the project
+Go inside the project's folder and run the command below to deploy the project:
+```
+scrapyd-deploy -p borderwait
+```
+**Note:** If you have errors when running command above please remove folder **project.egg-info** and **build** inside project folder.
+
+If you want to delete deployed project:
+```
+curl http://localhost:6800/delproject.json -d project=borderwait
+```
+
+#### Running the spiders
+Scrapyd can be accessed by outside since it uses the localhost(0.0.0.0), so we need to block it by changing the localhost to 127.0.0.1 which blocks outside world from entering.
+```
+curl http://localhost:6800/schedule.json -d project=borderwait -d spider=borderwait
+```
+
+
 ## Authors
 
-* **[Georges Labrèche](https://github.com/georgeslabreche)** & **[Diamant Haxhimusa](https://github.com/diamanthaxhimusa)**
+* **[Georges Labrèche](https://github.com/georgeslabreche)** & **[Diamant Haxhimusa](https://github.com/diamanthaxhimusa)** & **[Arianit Hetemi](https://github.com/arianithetemi)**
