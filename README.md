@@ -1,17 +1,18 @@
-# border-wait
+# Border Wait - Bot App
 
-BorderWait project is a python web crawler which crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](http://www.mpb-ks.org/qkmk/) and posts the delays at each border with a random gif on facebook and twitter.
+Border Wait is a python web crawler, facebook and twitter bot - crawls the data from [Qendra Kombëtare për Menaxhim Kufitar (QKMK)](https://mpb.rks-gov.net/QKMK.aspx) then posts and tweets the delays at each border with a specifc gif on facebook and twitter.
 
-### Environment
-What things you need to install the software.
-* [Ubuntu 14.04 LTS](https://www.ubuntu.com/)
-* [Scrapy](http://scrapy.readthedocs.io/en/latest/) - The python web crawling framework.
-* [Scrapyd](http://scrapyd.readthedocs.io/en/latest/) - Scrapyd is an application for deploying and running Scrapy spiders.
-* [Tweepy](http://tweepy.readthedocs.io/en/v3.5.0/) - The python library for accessing the Twitter API.
-* [MongoDB & Pymongo](https://www.mongodb.com/) - Nosql open-source databse & Pymongo a python distribution that contains tools for working with MongoDB.
-* [Nginx](https://www.nginx.com/) - NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more.
+## Technologies
+* Operating System: **[Ubuntu 14.04 LTS](https://www.ubuntu.com/)**
+* Language: **[Python](https://www.python.org/)**
+* Crawling Framework: **[Scrapy](http://scrapy.readthedocs.io/en/latest/)**
+* Scrapy Deploy and Control Spider API: **[Scrapyd](http://scrapyd.readthedocs.io/en/latest/)**
+* Python Twitter API: **[Tweepy](http://tweepy.readthedocs.io/en/v3.5.0/)**
+* Database: **[MongoDB](https://www.mongodb.com/)**
+* MongoDB ORM: **[PyMongo](https://api.mongodb.com/python/current/)**
+* Web Server: **[NGINX](https://www.nginx.com/)**
 
-### Initial Setup
+## Setup and installing prerequisites
 GPG (GNU Privacy Guard) is the tool used in secure apt to sign files and check their signatures.
 
 apt-key is a program that is used to manage a keyring of gpg keys for secure apt. The keyring is kept in the file /etc/apt/trusted.gpg (not to be confused with the related but not very interesting  /etc/apt/trustdb.gpg). apt-key can be used to show the keys in the keyring, and to add or remove a key.
@@ -26,6 +27,7 @@ Create /etc/apt/sources.list.d/scrapy.list file using the following command:
 ```
 echo 'deb http://archive.scrapy.org/ubuntu scrapy main' | sudo tee /etc/apt/sources.list.d/scrapy.list
 ```
+
 #### Installing Scrapy & Scrapyd
 Install these dependecies in order to install Scrapy:
 ```
@@ -36,6 +38,7 @@ Update package lists and install the scrapy package:
 ```
 sudo apt-get update && sudo apt-get install scrapy
 ```
+
 Scrapyd service for deploying and managing spiders:
 ```
 sudo apt-get install scrapyd
@@ -52,6 +55,11 @@ We need to install scrapy python packages as well:
 sudo pip install scrapy==1.0.5
 ```
 
+Install Git:
+```
+sudo apt-get install git
+```
+
 Go inside the projects folder and install scrapyd using pip:
 ```
 sudo pip install -e git+https://github.com/scrapy/scrapyd.git@32be9b85b0ba496e5a5d983ee492f1116f9cfbb9#egg=scrapyd
@@ -62,19 +70,20 @@ sudo pip install -e git+https://github.com/scrapy/scrapyd.git@32be9b85b0ba496e5a
 sudo pip install Twisted==16.4.1
 ```
 
-#### Preparing the project
-Getting the project in your local machine:
+## Preparing the project
+
+Clone the project in your machine:
 ```
 git clone https://github.com/opendatakosovo/border-wait.git
 cd border-wait
 ```
-Adding the Facebook and Twitter api tokens:
+
+Adding the Facebook and Twitter API Access Tokens:
 ```
 cd borderwait
-nano settings.py
-.
-.
-.
+sudo nano settings.py
+
+...
 # TWITTER ACCESS TOKENS FOR TWITTER BOT
 TWITTER_CONSUMER_KEY = ''
 TWITTER_CONSUMER_SECRET = ''
@@ -83,26 +92,26 @@ TWITTER_ACCESS_TOKEN_SECRET = ''
 
 # FACEBOOK ACCESS TOKENS FOR FACEBOOK BOT
 FACEBOOK_ACCESS_TOKEN = ''
+...
 ```
-then add your own Facebook and Twitter api tokens.
 
-###### Donwloading the gifs to post social media:
-First we need to set the path where we want to save the gifs.
+Get global root project path (use pwd command in root project path to get the global path):
+```
+pwd
+/home/<user>/border-wait
+```
+
+Set the global root project path into settings.py
 ```
 cd borderwait
-nano setting.py
-.
-.
-.
-# PATH TO SAVE GIFS . DEFAULT IS THE PROJECT DIRECTORY
-GIFS_DIRECTORY = './'
-```
-Then run the downloader.py at project's main folder:
-```
-python downloader.py
+sudo nano settings.py
+
+...
+GLOBAL_PROJECT_DIRECTORY = '/home/<user>/border-wait'
+...
 ```
 
-#### Deploying the project
+## Deploying the project
 
 Go inside the project's folder and type:
 ```
