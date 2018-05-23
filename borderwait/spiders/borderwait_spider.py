@@ -34,7 +34,7 @@ class BorderWaitSpider(scrapy.Spider):
             # item['date'] = dt.isoformat()
 
             # Time
-            item['time'] = raw_datetime[33:]
+            item['time'] = raw_datetime[37:]
 
             # Border entry and exit (min)
             entry = self.conver_int(bc[1].strip(), bc)
@@ -84,7 +84,7 @@ class BorderWaitSpider(scrapy.Spider):
         # Getting only the date from the string
         date = raw_datetime[18:28]
         # Getting only the time from the string
-        time = raw_datetime[33:]
+        time = raw_datetime[37:]
 
         # Merging date and time together
         formatted_datetime = date + ' ' + time
