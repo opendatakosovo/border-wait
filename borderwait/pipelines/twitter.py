@@ -72,7 +72,7 @@ class TwitterPipeline(object):
         def get_feeling_path(feeling, border_name):
             # Building the path based on border name and feeling
             normalized_border_name = unicodedata.normalize("NFD", border_name).encode("ascii", "ignore")
-            filename = normalized_border_name + '_' + feeling + '.gif'
+            filename = normalized_border_name + '_' + feeling + '.jpg'
             gif_filename = filename.decode('utf-8')
             return '%s/%s/%s'%(self.global_project_dir, feeling, gif_filename)
 
